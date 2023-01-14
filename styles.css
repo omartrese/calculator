@@ -2,3 +2,43 @@
 {
   margin: 0;
 }
+
+body
+{
+  display: block;
+}
+
+#result
+{
+  margin-bottom: 5em;
+}
+
+div
+{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.buttonNumber
+{
+  width: 8em;
+  height: 8em;
+  margin-left: 10px;
+  margin-bottom: 2em;
+  border-style: double;
+  border-radius: 100%;
+  box-shadow: none;
+  font-size: 1em;
+  
+}
+
+#ceroButton
+{
+  padding-left: 16em;
+  border-radius: 20%;
+  border-style: none;
+  text-align: center;
+  vertical-align: 1px;
+  
+}
