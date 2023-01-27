@@ -2,6 +2,7 @@ addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.buttonNumber');
   const equalTo = document.getElementById('equalTo');
   const result = document.getElementById('result');
+  
   let firstValue;
   let firstValueNum;
 
@@ -10,19 +11,27 @@ addEventListener('DOMContentLoaded', () => {
 
   result.innerText = '';
 
-  for(let i = 0; i < buttons.length - 1; i++)
-  {
-    buttons[i].addEventListener('click', () => {
-      firstValue = buttons[i].innerHTML;
-      result.innerText += firstValue;
-    })
-  }
+  
+      
+    for(let i = 0; i < buttons.length - 1; i++)
+    {
+      buttons[i].addEventListener('click', () => {
+        firstValue = buttons[i].innerText;
+        if(result.innerText.length < 37)
+        {
+          result.innerText += firstValue;
+        }
+      })
+    }
+  
 
   buttons[10].addEventListener('click', () => {
 
     
 
   })
+
+
 
   /* 8732485373 => int => firstValue 
   al obtener firstValue y SecondValue con el mismo procedimiento en cada uno
