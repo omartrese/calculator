@@ -10,36 +10,38 @@ body
 
 #result
 {
-  margin-top: 1em;
-  margin-bottom: 0.5em;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 2em;
+  margin-top: 0.3em;
+  font-family: sans-serif;
+  font-size: 4em;
   border-radius: 0.5em;
   border-color: black;
   border-style: ridge;
   text-align: center;
-
+  overflow-wrap: break-word;
 }
 
 div
 {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
+  transform: translate(-10px, 22px);
 }
 
-.buttonNumber
+button
 {
-  width: 10em;
-  height: 10em;
+  width: 9em;
+  height: 9em;
+  font-size: 19px;
   margin-left: 10px;
-  margin-bottom: 2em;
-  margin-top: 0.5em;
+  margin-bottom: 1em;
+  /* margin-top: 0.5em; */
   border-style: ridge;
   border-radius: 100%;
   box-shadow: none;
   border-color: black;
 }
+
 
 #equalTo
 {
@@ -48,3 +50,37 @@ div
   border-radius: 1em;
 }
 
+@media (min-width: 900px) 
+{
+  button
+  {
+    width: 12em;
+    height: 12em;
+    font-size: 19px;
+    margin-left: 10px;
+    margin-bottom: 2em;
+    /* margin-top: 0.5em; */
+    border-style: ridge;
+    border-radius: 100%;
+    box-shadow: none;
+    border-color: black;
+  }
+
+}
+
+@media (min-height: 1040px)
+{
+  button
+  {
+    width: 10em;
+    height: 10em;
+    font-size: 19px;
+    margin-left: 10px;
+    margin-bottom: 1em;
+    /* margin-top: 0.5em; */
+    border-style: ridge;
+    border-radius: 100%;
+    box-shadow: none;
+    border-color: black;
+  }
+}

@@ -1,5 +1,5 @@
 addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.buttonNumber');
+  const buttons = document.querySelectorAll('.number');
   const equalTo = document.getElementById('equalTo');
   const result = document.getElementById('result');
   
@@ -13,7 +13,7 @@ addEventListener('DOMContentLoaded', () => {
 
   
       
-    for(let i = 0; i < buttons.length - 1; i++)
+    for(let i = 0; i < buttons.length; i++)
     {
       buttons[i].addEventListener('click', () => {
         firstValue = buttons[i].innerText;
@@ -25,7 +25,7 @@ addEventListener('DOMContentLoaded', () => {
     }
   
 
-  buttons[10].addEventListener('click', () => {
+  equalTo.addEventListener('click', () => {
 
     
 
