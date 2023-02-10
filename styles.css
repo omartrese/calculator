@@ -28,6 +28,11 @@ div
   transform: translate(-10px, 22px);
 }
 
+.firstRow
+{
+  transform: translateX(4.5em);
+}
+
 button
 {
   width: 9em;
@@ -42,7 +47,6 @@ button
   border-color: black;
 }
 
-
 #equalTo
 {
   margin-left: 2em;
@@ -54,8 +58,8 @@ button
 {
   button
   {
-    width: 12em;
-    height: 12em;
+    width: 9em;
+    height: 9em;
     font-size: 19px;
     margin-left: 10px;
     margin-bottom: 2em;
