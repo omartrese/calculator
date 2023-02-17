@@ -6,95 +6,109 @@ addEventListener('DOMContentLoaded', () => {
   const deleteButton = document.getElementById('delete');
 
   let isFirst = true;
+  let isDone = false;
 
-  let strFirstValue;
-  let strSecondValue;
-  let strCalc;
+  let operationString = "";
 
-  let firstValue;
-  let secondValue;
-  let result;
-  
-  resultText.innerText = '0';
-      
-  inputValues(strFirstValue);
+  let numberText;
 
-  strCalc = inputOperations();
+  let firstValue = 0;
+  let secondValue = 0;
+  let resultValue = 0;
 
-  inputValues(strSecondValue);
+    resultText.innerText = '0';
+    
 
-  switch (strCalc) 
-  {
-    case "+":
-      result = parseInt(strFirstValue) + parseInt(strSecondValue);
-      break;
-  
-    case "-":
-      result = parseInt(strFirstValue) - parseInt(strSecondValue);
-      break;
-
-    case "x":
-      result = parseInt(strFirstValue) * parseInt(strSecondValue);
-      break;
-
-    case "/":
-      result = parseInt(strFirstValue) / parseInt(strSecondValue);
-      break;
-
-    default:
-      result = parseInt(strFirstValue);
-      break;
-  }
-
-  equalTo.addEventListener('click', () => {
-      resultText = result.toString();
-      numberText = "";
-  })
-
-  deleteButton.addEventListener('click', () => {
-      numberText = "0";
-      resultText.innerText = numberText;
-  })
-
-
-
-  function inputValues(x)
-  {
     for(let i = 0; i < buttons.length; i++)
     {
-      buttons[i].addEventListener('click', () => 
-      {
-          x = buttons[i].innerText;
+      buttons[i].addEventListener('click', () => {
+          numberText = buttons[i].innerText;
+          resultText.style = "color:black";
+          // if(result.style == "color:red")
+          // {
+          //   result.innerText = numberText;
+          // }
           if(resultText.innerText.length < 37)
           {
-            if(resultText.innerText === "0")
+            if(resultText.innerText === "0" || isDone)
             {
-              resultText.innerText = x;
-            }else
-            resultText.innerText += x;
+              resultText.innerText = numberText;
+              isDone = false;
+            } else
+            resultText.innerText += numberText;
           }
-
+          if(isFirst)
+          {
+            if(resultText.innerText != "")
+            {
+              firstValue = parseInt(resultText.innerText);
+            }
+          }
+          
+          
       })
     }
-  }
-  
-  function inputOperations() 
-  {
-    let operation;
+    
+    resultValue = parseInt(resultText.innerText);
 
-    for(let i = 0; i < calcButtons.length; i++)
+    for(let i = 0; i < calcButtons.length; i++) //OPERATION FUNCTIONS
     {
-      calcButtons[i].addEventListener('click', () =>
-      {
+      calcButtons[i].addEventListener('click', () => {
+        operationString = calcButtons[i].innerText;
         isFirst = false;
-        inputValues(strSecondValue);
-
-        operation = calcButtons[i].innerText;
-
-        return operation;
+        isDone = true;
+        firstValue = parseInt(resultText.innerText);
+        resultText.style = "color:blue";
       })
-    }  
-  }
+    }
+
+    deleteButton.addEventListener('click', () => { //DELETE BUTTON
+      numberText = "0";
+      resultText.innerText = numberText;
+    })
+
+    
+
+    equalTo.addEventListener('click', () => { //EQUAL-TO LOGIC
+      resultText.innerText = resultValue.toString();
+      resultText.style = "color:red";
+      isDone = true;
+      isFirst = true;
+      if(!isFirst)
+      {
+        secondValue = parseInt(resultText.innerText);
+        calc(operationString, firstValue, secondValue);
+      }
+
+      console.log(resultValue);
+    })
+
+
+    function calc(strOp, first, second)
+    {
+
+      switch (strOp) {
+        case "+":
+          resultValue = first + second;
+          break;
+      
+        case "-":
+          resultValue = first - second;
+          break;
+
+        case "x":
+          resultValue = first * second;
+          break;
+
+        case "/":
+          resultValue = first / second;
+          break;
+          
+        default:
+          resultValue = first;
+          break;
+      }
+    }
 
 })
 
