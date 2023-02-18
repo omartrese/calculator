@@ -79,8 +79,12 @@ addEventListener('DOMContentLoaded', () => {
     secondNumber = currentNumber;
     resultText.innerText = calculate(strOperation);
     currentNumber = resultText.innerText;
+    console.log("***2nd*** NUMBER is: " + secondNumber);
     console.log("THE RESULT of " + firstNumber + " " + strOperation + " " + secondNumber + " is: " + currentNumber);
     strOperation = [];
+    firstNumber = currentNumber;
+    secondNumber = "";
+    console.log("***1st*** NUMBER is: " + firstNumber);
   });
 
   function ACbutton()
