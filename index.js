@@ -1,119 +1,128 @@
 addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.number');
+  const numButtons = document.querySelectorAll('.number');
   const calcButtons = document.querySelectorAll('.operation');
   const equalTo = document.getElementById('equalTo');
   const resultText = document.getElementById('result');
   const deleteButton = document.getElementById('delete');
-
-  let isFirst = true;
+  let currentNumber; // the number that has the current value in string
   let isDone = false;
+  let firstNumber = "";
+  let secondNumber = "";
 
-  let operationString = "";
+  let strOperation = [];
 
-  let numberText;
+  resultText.innerText = "0";
+  
 
-  let firstValue = 0;
-  let secondValue = 0;
-  let resultValue = 0;
+  for(let i = 0; i < numButtons.length; i++)
+  {
+    let clickedNumber;    
 
-    resultText.innerText = '0';
-    
+    numButtons[i].addEventListener('click', () => {
+      clickedNumber = numButtons[i].innerText;
+      // console.log("the number that has been clicked is: " + clickedNumber);
 
-    for(let i = 0; i < buttons.length; i++)
-    {
-      buttons[i].addEventListener('click', () => {
-          numberText = buttons[i].innerText;
-          resultText.style = "color:black";
-          // if(result.style == "color:red")
-          // {
-          //   result.innerText = numberText;
-          // }
-          if(resultText.innerText.length < 37)
-          {
-            if(resultText.innerText === "0" || isDone)
-            {
-              resultText.innerText = numberText;
-              isDone = false;
-            } else
-            resultText.innerText += numberText;
-          }
-          if(isFirst)
-          {
-            if(resultText.innerText != "")
-            {
-              firstValue = parseInt(resultText.innerText);
-            }
-          }
-          
-          
-      })
-    }
-    
-    resultValue = parseInt(resultText.innerText);
+      resultText.style = "color:black";
 
-    for(let i = 0; i < calcButtons.length; i++) //OPERATION FUNCTIONS
-    {
-      calcButtons[i].addEventListener('click', () => {
-        operationString = calcButtons[i].innerText;
-        isFirst = false;
-        isDone = true;
-        firstValue = parseInt(resultText.innerText);
-        resultText.style = "color:blue";
-      })
-    }
-
-    deleteButton.addEventListener('click', () => { //DELETE BUTTON
-      numberText = "0";
-      resultText.innerText = numberText;
-    })
-
-    
-
-    equalTo.addEventListener('click', () => { //EQUAL-TO LOGIC
-      resultText.innerText = resultValue.toString();
-      resultText.style = "color:red";
-      isDone = true;
-      isFirst = true;
-      if(!isFirst)
+      if(resultText.innerText.length < 37)
       {
-        secondValue = parseInt(resultText.innerText);
-        calc(operationString, firstValue, secondValue);
-      }
+        if(isDone)
+        {
+          resultText.innerText = "0";
+          resultText.innerText = clickedNumber;
+          isDone = false;
+        } else 
+        {
+          resultText.innerText += clickedNumber;
+        }          
+      } else currentNumber = resultText.innerText;
 
-      console.log(resultValue);
+      currentNumber = resultText.innerText;
+      // console.log("CURRENT NUMBER IS: " + currentNumber);
     })
+  }
 
-
-    function calc(strOp, first, second)
-    {
-
-      switch (strOp) {
-        case "+":
-          resultValue = first + second;
-          break;
+  for(let i = 0; i < calcButtons.length; i++)
+  {
+    calcButtons[i].addEventListener('click', () => {
+      strOperation.unshift(calcButtons[i].innerText);
+      // if(strOperation.length > 2)
+      // {
+      //   strOperation.shift();
+      // }
       
-        case "-":
-          resultValue = first - second;
-          break;
-
-        case "x":
-          resultValue = first * second;
-          break;
-
-        case "/":
-          resultValue = first / second;
-          break;
-          
-        default:
-          resultValue = first;
-          break;
+      if(firstNumber == "")
+      {
+        firstNumber = currentNumber;
+        console.log("***1st*** NUMBER: " + firstNumber);
+      } else
+      {
+        secondNumber = currentNumber;
+        console.log("***2nd*** NUMBER: " + secondNumber);
       }
+      
+      if(firstNumber != "" && secondNumber != "")
+      {
+        firstNumber = calculate(strOperation.pop());
+        console.log("***AGAIN 1st*** NUMBER: " + firstNumber);
+        secondNumber = "";
+      }
+      
+      console.log("the ACTUAL OPERATION is: " + strOperation);
+      isDone = true;
+    })  
+  }
+
+  deleteButton.addEventListener('click', ACbutton);
+
+  equalTo.addEventListener('click', () => {
+    secondNumber = currentNumber;
+    resultText.innerText = calculate(strOperation);
+    currentNumber = resultText.innerText;
+    console.log("THE RESULT of " + firstNumber + " " + strOperation + " " + secondNumber + " is: " + currentNumber);
+    strOperation = [];
+  });
+
+  function ACbutton()
+  {
+    resultText.innerText = "0";
+    currentNumber = resultText.innerText;
+    firstNumber = "";
+    secondNumber = "";
+    strOperation = [];
+    console.clear();
+    console.log(" YOU HAVE CLICKED *AC* and the CURRENT NUMBER is: " + currentNumber);
+  }
+  
+
+  function calculate(operation)
+  {
+    let firstValue = parseInt(firstNumber);
+    let secondValue = parseInt(secondNumber);
+    let result;
+    switch(operation[0])
+    {
+      case "+":
+        result = firstValue + secondValue;
+        break;
+
+      case "-":
+        result = firstValue - secondValue;
+        break;
+      
+      case "x":
+        result = firstValue * secondValue;
+        break;
+
+      case "/":
+        result = firstValue / secondValue;
+        break;
+
+      default:
+        result = parseInt(currentNumber);
+        break;  
     }
 
+    return result;
+  } 
 })
-
-
-  /* 8732485373 => int => firstValue 
-  al obtener firstValue y SecondValue con el mismo procedimiento en cada uno
-  se obtiene el tipo de operacion matematica elegida y se aplica en ambos valores
-  */
